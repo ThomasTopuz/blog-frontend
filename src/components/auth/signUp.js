@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import TextField from '@material-ui/core/TextField';
 import {makeStyles} from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -9,6 +9,7 @@ import {useForm} from 'react-hook-form';
 import axios from "axios";
 import Alert from '@material-ui/lab/Alert';
 import { useHistory } from 'react-router-dom';
+import {UserContext} from "../../context/UserContext";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -21,6 +22,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SignUpPage = () => {
+    const {user, setUser} = useContext(UserContext);
+
     let history = useHistory();
     let [alreadyRegisteredMsg, setAlreadyRegisteredMsg] = useState(false);
     const methods = useForm();
@@ -30,12 +33,16 @@ const SignUpPage = () => {
             .then((res) => {
                 //is logged in automatically
                 localStorage.setItem("jwtToken", res.headers["x-auth-token"]);
-                //redirect to dashboard
-                history.push("/dashboard");
+                setUser(res.data);
+                redirectDashboard();
             })
             .catch((err) => {
                 setAlreadyRegisteredMsg(true);
             });
+    }
+
+    const redirectDashboard = () => {
+        history.push("/dashboard");
     }
 
     return (

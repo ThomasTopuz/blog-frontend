@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import TextField from '@material-ui/core/TextField';
 import {makeStyles} from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -8,6 +8,7 @@ import {Link, useHistory} from 'react-router-dom'
 import {useForm} from "react-hook-form";
 import axios from "axios";
 import Alert from "@material-ui/lab/Alert";
+import {UserContext} from "../../context/UserContext";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -18,60 +19,82 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const LoginPage = (props) => {
+const LoginPage = () => {
+    const {user, setUser} = useContext(UserContext);
     let history = useHistory();
-    let [incorrectEmailOrPassword, setIncorrectEmailOrPassword] = useState(false);
 
+    useEffect(() => {
+        if (user) {
+            redirectDashboard();
+        } else if (localStorage.getItem("jwtToken")) {
+            axios.get("http://localhost:5000/api/v1/users/me", {headers: {'x-auth-token': localStorage.getItem('jwtToken')}})
+                .then(res => {
+                    setUser(res.data);
+                    redirectDashboard();
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+    }, []);
+
+    let [incorrectEmailOrPassword, setIncorrectEmailOrPassword] = useState(false);
     const methods = useForm();
     const {handleSubmit, register, errors} = methods;
     const onSubmit = (data) => {
         axios.post("http://localhost:5000/api/v1/users/login", data)
             .then((res) => {
-                //is logged in automatically
                 localStorage.setItem("jwtToken", res.headers["x-auth-token"]);
-                localStorage.setItem("user", JSON.stringify(res.data));
-                console.log(JSON.parse(localStorage.getItem("user")));
-                props.getUsername(res.data.username);
-                //redirect to dashboard
-                history.push("/dashboard");
+                setUser(res.data);
+                redirectDashboard();
             })
             .catch((err) => {
                 setIncorrectEmailOrPassword(true);
             });
     }
+
+    const redirectDashboard = () => {
+        history.push("/dashboard");
+    }
+
     return (
         <div>
             <div className={"row mt-3 justify-content-center"}>
                 <div className={"col-md-4"}>
                     <Paper elevation={24}>
-                    <div className={"p-5"}>
-                        <h2 className={"text-center"}>Login form</h2>
-                        <form onSubmit={handleSubmit(onSubmit)} className={useStyles.root} noValidate autoComplete="off">
-                            {incorrectEmailOrPassword && <div>
-                                <Alert className={"mt-3 mb-3"} severity="error">Incorrect Email or password</Alert>
-                            </div>}
-                            <div className={"mb-3"}>
-                                <TextField error={!!errors.email} fullWidth label="Email"
-                                           placeholder={"Write your email"} name="email"
-                                           inputRef={register({
-                                               required: "Email is required"
-                                           })}
-                                           helperText={(!!errors.email) ? errors.email.message : ""}/>
-                            </div>
-                            <div className={"mb-3"}>
-                                <TextField error={!!errors.password} fullWidth type={"password"} label="Password"
-                                           placeholder={"Write your password"} name="password" inputRef={register({
-                                    required: "Password is required"
-                                })}
-                                           helperText={(!!errors.password) ? errors.password.message : ""}/>
-                            </div>
-                            <Button type={"submit"} className={"float-right"} variant="contained" color="primary" endIcon={<ExitToAppIcon />}>
-                                Login
-                            </Button>
-                            <p>Not have an account? <Link to={"/signup"}>Sign Up</Link></p>
-
-                        </form>
-                    </div>
+                        <div className={"p-5"}>
+                            <h2 className={"text-center"}>Login form</h2>
+                            <form onSubmit={handleSubmit(onSubmit)} className={useStyles.root} noValidate
+                                  autoComplete="off">
+                                {incorrectEmailOrPassword && <div>
+                                    <Alert className={"mt-3 mb-3"} severity="error">Incorrect Email or password</Alert>
+                                </div>}
+                                <div className={"mb-3"}>
+                                    <TextField error={!!errors.email} fullWidth label="Email"
+                                               placeholder={"Write your email"} name="email"
+                                               inputRef={register({
+                                                   required: "Email is required"
+                                               })}
+                                               helperText={(!!errors.email) ? errors.email.message : ""}/>
+                                </div>
+                                <div className={"mb-3"}>
+                                    <TextField error={!!errors.password} fullWidth type={"password"} label="Password"
+                                               placeholder={"Write your password"} name="password" inputRef={register({
+                                        required: "Password is required"
+                                    })}
+                                               helperText={(!!errors.password) ? errors.password.message : ""}/>
+                                </div>
+                                <Button type={"submit"} className={"float-right"} variant="contained" color="primary"
+                                        endIcon={<ExitToAppIcon/>}>
+                                    Login
+                                </Button>
+                                <p>Not have an account? <Link to={"/signup"}>Sign Up</Link></p>
+                                <p>
+                                    test
+                                    {JSON.stringify(user, null, 2)}
+                                </p>
+                            </form>
+                        </div>
                     </Paper>
                 </div>
 
