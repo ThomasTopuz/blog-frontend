@@ -8,7 +8,7 @@ import {Link} from 'react-router-dom';
 import {useForm} from 'react-hook-form';
 import axios from "axios";
 import Alert from '@material-ui/lab/Alert';
-import { useHistory } from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import {UserContext} from "../../context/UserContext";
 
 
@@ -87,9 +87,9 @@ const SignUpPage = () => {
                                     <TextField error={!!errors.password} fullWidth type={"password"} label="Password"
                                                placeholder={"Write your password"} name="password" inputRef={register({
                                         required: "Password is required",
-                                        minLength:{
-                                            value:4,
-                                            message:"Password minlenght is 4 characters"
+                                        minLength: {
+                                            value: 4,
+                                            message: "Password minlenght is 4 characters"
                                         }
                                     })}
                                                helperText={(!!errors.password) ? errors.password.message : ""}/>

@@ -23,30 +23,35 @@ function EditableBlogPost(props) {
             >
                 <h5>{props.title}</h5>
                 <div className={'float-right w-100'}>
-                    <Button className={'float-right'} startIcon={<DeleteIcon
-                        color={"inherit"}/>}/>
-                    <Button className={'float-right'} onClick={() => {
-                        console.log(isEditing);
-                        setIsEditing(!isEditing);
-                        console.log(isEditing);
-                        console.log(" ")
-                    }}
-                            startIcon={<BorderColorIcon
-                                color={"inherit"}/>}/>
                     <Button className={'float-right'} startIcon={<ThumbUpIcon/>}>{props.likes}</Button>
 
                 </div>
             </AccordionSummary>
             <AccordionDetails>
-                {isEditing ? <div>
-                        <TextareaAutosize className={"p-2 rounded"} aria-label="empty" cols={125} value={props.content} placeholder="Empty"/>
-                        <Button variant="contained" color="secondary" className={'float-right'} startIcon={<DoneOutlineIcon/>}>Submit</Button>
+                <div className={"d-flex p-3"}>
+                    {isEditing ? <div>
+                            <TextareaAutosize className={"p-2 rounded"} aria-label="empty" cols={125} value={props.content}
+                                              placeholder="Empty"/>
+                            <Button variant="contained" color="secondary" className={'float-left'}
+                                    startIcon={<DoneOutlineIcon/>}>Submit</Button>
+                        </div>
+                        :
+                        <Typography>
+                            {props.content}
+                        </Typography>
+                    }
+                    <div className={"row"}>
+                        <Button className={''} onClick={() => {
+                            setIsEditing(!isEditing);
+                        }} startIcon={<BorderColorIcon
+                            color={"inherit"}/>}/>
+                        <Button className={''} onClick={()=>props.deletePost(props.id)} startIcon={<DeleteIcon
+                            color={"inherit"}/>}/>
                     </div>
-                    :
-                    <Typography>
-                        {props.content}
-                    </Typography>
-                }
+
+                </div>
+
+
             </AccordionDetails>
         </Accordion>
     );
