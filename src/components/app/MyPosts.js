@@ -1,8 +1,12 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import axios from "axios";
 import Alert from "@material-ui/lab/Alert";
 import EditableBlogPost from "./EditableBlogPost";
 import {UserContext} from "../../context/UserContext";
+import Button from "@material-ui/core/Button";
+import Snackbar from '@material-ui/core/Snackbar'
+import {render} from "@testing-library/react";
+import {Toast} from 'primereact/toast';
 
 function MyPosts() {
     let [createdPosts, setCreatedPosts] = useState();
@@ -20,20 +24,36 @@ function MyPosts() {
     }, [])
 
     function deletePost(id) {
-        console.log("id",id)
-        let updateCreatedPosts = createdPosts.filter(function( item ) {
+        let updateCreatedPosts = createdPosts.filter(function (item) {
             return item._id !== id;
         });
         setCreatedPosts(updateCreatedPosts);
-        axios.delete('http://localhost:5000/api/v1/post/'+id, {headers:{'x-auth-token': localStorage.getItem('jwtToken')}})
-            .then((res)=>{
+        axios.delete('http://localhost:5000/api/v1/post/' + id, {headers: {'x-auth-token': localStorage.getItem('jwtToken')}})
+            .then((res) => {
                 console.log('deleted successfully')
             })
-            .catch((err)=>{
+            .catch((err) => {
                 console.log(err);
             })
     }
 
+    const [open, setOpen] = useState(false);
+
+    const handleClick = () => {
+        setOpen(true);
+    };
+
+    const handleClose = (reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpen(false)
+
+    };
+    const showSuccess = () => {
+        toast.current.show({severity: 'success', summary: 'Success Message', detail: 'Message Content', life: 3000});
+    }
+    const toast = useRef(null);
     return (
         <div>
             <h1 className={"m-4"}>Your Posts</h1>
@@ -55,9 +75,14 @@ function MyPosts() {
                 </div>
             </div>
 
-
+            <Button variant="outlined" onClick={handleClick}>
+                Open success snackbar
+            </Button>
+            <Toast ref={toast}/>
+            <Button onClick={showSuccess}> ciao </Button>
         </div>
     );
 }
+
 
 export default MyPosts;
