@@ -37,23 +37,8 @@ function MyPosts() {
             })
     }
 
-    const [open, setOpen] = useState(false);
 
-    const handleClick = () => {
-        setOpen(true);
-    };
 
-    const handleClose = (reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-        setOpen(false)
-
-    };
-    const showSuccess = () => {
-        toast.current.show({severity: 'success', summary: 'Success Message', detail: 'Message Content', life: 3000});
-    }
-    const toast = useRef(null);
     return (
         <div>
             <h1 className={"m-4"}>Your Posts</h1>
@@ -74,12 +59,6 @@ function MyPosts() {
                     </div>
                 </div>
             </div>
-
-            <Button variant="outlined" onClick={handleClick}>
-                Open success snackbar
-            </Button>
-            <Toast ref={toast}/>
-            <Button onClick={showSuccess}> ciao </Button>
         </div>
     );
 }
