@@ -12,7 +12,7 @@ import Login from "./components/auth/login";
 import SignUpPage from "./components/auth/signUp";
 import MyPosts from "./components/app/MyPosts";
 import LikedPosts from "./components/app/LikedPosts";
-import Dashboard from "./components/app/Dashboard";
+import Feed from "./components/app/Feed";
 import axios from "axios";
 
 const theme = createMuiTheme({
@@ -24,9 +24,9 @@ const theme = createMuiTheme({
             contrastText: '#fff',
         },
         secondary: {
-            light: '#39ba55',
-            main: '#68ba69',
-            dark: '#65d74b',
+            light: '#39ba77',
+            main: '#68ba89',
+            dark: '#4bd78f',
             contrastText: '#000',
         },
         third: {
@@ -45,8 +45,7 @@ function App() {
     let history = useHistory();
 
     useEffect(() => {
-        if (!user) {
-            localStorage.getItem("jwtToken")
+        if (!user && localStorage.getItem("jwtToken")) {
             axios.get("http://localhost:5000/api/v1/users/me", {headers: {'x-auth-token': localStorage.getItem('jwtToken')}})
                 .then(res => {
                     setUser(res.data);
@@ -54,8 +53,10 @@ function App() {
                 .catch((err) => {
                     console.log(err);
                 });
+        } else {
+            setUser(null); //not logged
         }
-    }, [history, user]);
+    }, []);
 
     return (
         <ThemeProvider theme={theme}>
@@ -70,14 +71,14 @@ function App() {
                         <Route path={"/signup"}>
                             <SignUpPage/>
                         </Route>
-                        <Route path={"/dashboard"} exact>
-                            <Dashboard/>
+                        <Route path={"/feed"} exact>
+                            <Feed/>
                         </Route>
                         <Route path={"/myposts"} exact>
-                            {!user ? <Redirect to="/dashboard"/> : <MyPosts/>}
+                            {!user ? <Redirect to="/feed"/> : <MyPosts/>}
                         </Route>
                         <Route path={"/likedposts"} exact>
-                            {!user ? <Redirect to="/dashboard"/> : <LikedPosts/>}
+                            {!user ? <Redirect to="/feed"/> : <LikedPosts/>}
                         </Route>
 
                     </Switch>

@@ -53,7 +53,7 @@ const Login = () => {
     }
 
     const redirectDashboard = () => {
-        history.push("/dashboard");
+        history.push("/feed");
     }
 
     return (

@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import Paper from '@material-ui/core/Paper';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import Button from '@material-ui/core/Button';
@@ -8,9 +8,15 @@ import {UserContext} from "../../context/UserContext";
 function BlogPost(props) {
     let [likes, setLikes] = useState(props.likes);
     const {user, setUser} = useContext(UserContext);
-    let [isLiked, setIsLiked] = useState(user.likedPostsId.includes(props.id));
+    let [isLiked, setIsLiked] = useState((user == null || user) ? user?.likedPostsId.includes(props.id) : false);
 
+    useEffect(()=>{
+        setIsLiked((user == null || user) ? user?.likedPostsId.includes(props.id) : false);
+    },[user])
     function toggleLike() {
+        if(user==null){
+            return console.log("devi essere loggato!!")
+        }
         props.dislike?.(props.id);
         const headers = {
             'x-auth-token': localStorage.getItem("jwtToken")

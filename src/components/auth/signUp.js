@@ -43,7 +43,7 @@ const SignUpPage = () => {
     }
 
     const redirectDashboard = () => {
-        history.push("/dashboard");
+        history.push("/feed");
     }
 
     return (

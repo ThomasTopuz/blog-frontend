@@ -3,7 +3,7 @@ import axios from "axios";
 import BlogPost from "./BlogPost";
 import {UserContext} from "../../context/UserContext";
 
-function Dashboard() {
+function Feed() {
     let [blogPosts, setBlogPosts] = useState();
     const {user} = useContext(UserContext);
 
@@ -14,13 +14,13 @@ function Dashboard() {
                 setBlogPosts(res.data)
             })
             .catch(err => console.log(err));
-    }, [])
+    }, [user])
 
     return (
         <div>
-            {user == null || user &&
+            {(user == null || user) &&
             <div>
-                <h1 className={"m-4"}>Dashboard - all posts</h1>
+                <h1 className={"m-4"}>News Feed</h1>
                 <div>
                     <div className="row justify-content-center">
                         <div className="col-md-6">
@@ -38,4 +38,4 @@ function Dashboard() {
     );
 }
 
-export default Dashboard;
+export default Feed;

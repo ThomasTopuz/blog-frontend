@@ -32,12 +32,15 @@ function EditableBlogPost(props) {
                 aria-controls="panel2a-content"
                 id="panel2a-header"
             >
-                <h5>{props.title}</h5>
-                <div className={"float-right w-100"}>
-                    <Button className={"float-right"} startIcon={<ThumbUpIcon/>}>
-                        {props.likes}
-                    </Button>
+                <div className="d-flex justify-content-between w-100">
+                    <h5>{props.title}</h5>
+                    <div className={"t"}>
+                        <Button className={""} startIcon={<ThumbUpIcon/>}>
+                            {props.likes}
+                        </Button>
+                    </div>
                 </div>
+
             </AccordionSummary>
             <AccordionDetails>
                 <div className="container">
@@ -62,6 +65,7 @@ function EditableBlogPost(props) {
                                     startIcon={<BorderColorIcon color={"inherit"}/>}
                                 />
                                 <Button
+                                    className={"mt-2"}
                                     onClick={() => props.deletePost(props.id)}
                                     startIcon={<DeleteIcon color={"inherit"}/>}
                                 />

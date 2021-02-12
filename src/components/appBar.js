@@ -18,9 +18,10 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
     },
 }));
+
 function NavBar() {
     const {user, setUser} = useContext(UserContext);
-    const logout = ()=>{
+    const logout = () => {
         setUser(undefined);
         localStorage.removeItem('jwtToken');
     }
@@ -31,9 +32,11 @@ function NavBar() {
                     <div className={"d-flex justify-content-between w-100"}>
                         <div>
                             <Button className={""} color="inherit" startIcon={<HomeIcon/>}>
-                                <Link to={"/dashboard"}
-                                      style={{textDecoration: 'none', color: "white"}}
-                                >Home</Link>
+                                <Link
+                                    className={"d-block"}
+                                    to={"/feed"}
+                                    style={{textDecoration: 'none', color: "white"}}
+                                >Feed</Link>
                             </Button>
                             {user &&
                             <div className={"m-0 p-0 float-right"}>
