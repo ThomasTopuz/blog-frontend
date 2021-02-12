@@ -8,7 +8,7 @@ import {UserContext} from './context/UserContext';
 
 //components
 import NavBar from './components/appBar';
-import LoginPage from "./components/auth/loginPage";
+import Login from "./components/auth/login";
 import SignUpPage from "./components/auth/signUp";
 import MyPosts from "./components/app/MyPosts";
 import LikedPosts from "./components/app/LikedPosts";
@@ -42,7 +42,7 @@ const theme = createMuiTheme({
 function App() {
 
     const [user, setUser] = useState(null);
-    const userProviderValue = useMemo(() => ({ user, setUser }), [user, setUser]);
+    const userProviderValue = useMemo(() => ({user, setUser}), [user, setUser]);
 
     let history = useHistory();
     useEffect(() => {
@@ -60,8 +60,6 @@ function App() {
         }
     }, []);
 
-    const [likedPosts, setLikedPosts] = useState(null);
-    const likedPostsProviderValue = useMemo(() => ({ user, setUser }), [user, setUser]);
     return (
         <ThemeProvider theme={theme}>
 
@@ -70,20 +68,20 @@ function App() {
                     <NavBar username={"admin"}/>
                     <Switch>
                         <Route path={"/login"}>
-                            <LoginPage/>
+                            <Login/>
                         </Route>
                         <Route path={"/signup"}>
                             <SignUpPage/>
                         </Route>
-                            <Route path={"/dashboard"} exact>
-                                <Dashboard/>
-                            </Route>
-                            <Route path={"/myposts"} exact>
-                                <MyPosts/>
-                            </Route>
-                            <Route path={"/likedposts"} exact>
-                                <LikedPosts/>
-                            </Route>
+                        <Route path={"/dashboard"} exact>
+                            <Dashboard/>
+                        </Route>
+                        <Route path={"/myposts"} exact>
+                            <MyPosts/>
+                        </Route>
+                        <Route path={"/likedposts"} exact>
+                            <LikedPosts/>
+                        </Route>
                     </Switch>
 
                 </UserContext.Provider>

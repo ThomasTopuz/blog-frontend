@@ -1,20 +1,17 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import BlogPost from "./BlogPost";
 import Alert from "@material-ui/lab/Alert";
-import {UserContext} from "../../context/UserContext";
 
 function LikedPosts() {
     let [LikedPosts, setLikedPosts] = useState();
-    let [loading, setLoading] = useState(true);
     useEffect(() => {
         //fetch all liked posts
         axios.get('http://localhost:5000/api/v1/post/liked', {headers: {'x-auth-token': localStorage.getItem("jwtToken")}})
             .then((res) => {
                 setLikedPosts(res.data);
-                setLoading(false);
             })
-            .catch((err) => console.log(err));
+            .catch(err => console.log(err));
     }, [])
 
     return (

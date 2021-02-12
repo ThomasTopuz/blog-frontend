@@ -8,8 +8,6 @@ import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
 import BorderColorIcon from "@material-ui/icons/BorderColor";
-import TextareaAutosize from "@material-ui/core/TextareaAutosize";
-import DoneOutlineIcon from "@material-ui/icons/DoneOutline";
 import {InputTextarea} from 'primereact/inputtextarea';
 import axios from "axios";
 
@@ -19,13 +17,14 @@ function EditableBlogPost(props) {
 
     function updateContent(updatedContent) {
         setContent(updatedContent);
-        axios.put('http://localhost:5000/api/v1/post/'+props.id,{title:props.title, content:updatedContent},
+        axios.put('http://localhost:5000/api/v1/post/' + props.id, {title: props.title, content: updatedContent},
             {headers: {'x-auth-token': localStorage.getItem('jwtToken')}})
             .then((res) => {
                 setIsEditing(false);
             })
             .catch(err => console.log(err));
     }
+
     return (
         <Accordion elevation={10}>
             <AccordionSummary
@@ -43,7 +42,7 @@ function EditableBlogPost(props) {
             <AccordionDetails>
                 <div className="container">
                     <div className={"row"}>
-                        <div className={"col-11"}>
+                        <div className={"col-10"}>
                             {isEditing ? (
                                 <div>
                                     <InputTextarea rows={5} className="w-100" value={content}
@@ -53,7 +52,7 @@ function EditableBlogPost(props) {
                                 <Typography>{content}</Typography>
                             )}
                         </div>
-                        <div className={"col-1"}>
+                        <div className={"col-2 p-0"}>
                             <Button
                                 className={"float-right mb-4"}
                                 onClick={() => {

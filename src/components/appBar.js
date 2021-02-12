@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useContext} from 'react';
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function NavBar() {
-    const { user, setUser } = useContext(UserContext);
+    const {user, setUser} = useContext(UserContext);
     return (
         <div className={useStyles.root}>
             <AppBar position="static">
@@ -33,22 +33,28 @@ function NavBar() {
                                 >Home</Link>
                             </Button>
                             {user &&
-                                <div className={"m-0 p-0 float-right"}>
-                                    <Button color="inherit"> <Link to={"/myposts"} style={{textDecoration: 'none', color: "white"}}
-                                    >My Posts</Link></Button>
-                                    <Button color="inherit"> <Link to={"/likedposts"} style={{textDecoration: 'none', color: "white"}}
-                                    >Liked Posts</Link></Button>
-                                </div>}
+                            <div className={"m-0 p-0 float-right"}>
+                                <Button color="inherit"> <Link to={"/myposts"}
+                                                               style={{textDecoration: 'none', color: "white"}}
+                                >My Posts</Link></Button>
+                                <Button color="inherit"> <Link to={"/likedposts"}
+                                                               style={{textDecoration: 'none', color: "white"}}
+                                >Liked Posts</Link></Button>
+                            </div>}
 
                         </div>
                         <div>
 
-                            {user? (<div>
+                            {user ? (<div>
                                     <Button color="inherit">{user?.username} </Button>
-                                    <Button variant="contained" color="secondary" onClick={()=>setUser(null)} >Logout</Button>
-                            </div>)
+                                    <Button variant="contained" color="default"
+                                            onClick={() => setUser(null)}>Logout</Button>
+                                </div>)
                                 :
-                                <Button variant="contained" color="secondary" > <Link to={"/login"} style={{textDecoration: 'none', color: "white"}}
+                                <Button variant="contained" color="secondary"> <Link to={"/login"} style={{
+                                    textDecoration: 'none',
+                                    color: "white"
+                                }}
                                 >Login</Link></Button>
                             }
                         </div>

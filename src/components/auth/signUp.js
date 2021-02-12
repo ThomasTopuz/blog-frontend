@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SignUpPage = () => {
-    const {user, setUser} = useContext(UserContext);
+    const {setUser} = useContext(UserContext);
 
     let history = useHistory();
     let [alreadyRegisteredMsg, setAlreadyRegisteredMsg] = useState(false);
@@ -38,6 +38,7 @@ const SignUpPage = () => {
             })
             .catch((err) => {
                 setAlreadyRegisteredMsg(true);
+                console.log(err);
             });
     }
 

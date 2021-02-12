@@ -4,23 +4,21 @@ import Alert from "@material-ui/lab/Alert";
 import EditableBlogPost from "./EditableBlogPost";
 import {UserContext} from "../../context/UserContext";
 import Button from "@material-ui/core/Button";
-import Snackbar from '@material-ui/core/Snackbar'
-import {render} from "@testing-library/react";
-import {Toast} from 'primereact/toast';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import CreatePost from "./CreatePost";
 
 function MyPosts() {
     let [createdPosts, setCreatedPosts] = useState();
-    let [loading, setLoading] = useState(true);
-    const {user, setUser} = useContext(UserContext);
+    const {user} = useContext(UserContext);
+    const [isCreating, setIsCreating] = useState(false);
 
     useEffect(() => {
         //fetch all posts
         axios.get('http://localhost:5000/api/v1/post/created', {headers: {'x-auth-token': localStorage.getItem("jwtToken")}})
             .then((res) => {
                 setCreatedPosts(res.data)
-                setLoading(false);
             })
-            .catch((err) => console.log(err));
+            .catch(err => console.log(err));
     }, [])
 
     function deletePost(id) {
@@ -29,35 +27,50 @@ function MyPosts() {
         });
         setCreatedPosts(updateCreatedPosts);
         axios.delete('http://localhost:5000/api/v1/post/' + id, {headers: {'x-auth-token': localStorage.getItem('jwtToken')}})
-            .then((res) => {
-                console.log('deleted successfully')
-            })
-            .catch((err) => {
-                console.log(err);
-            })
+            .catch(err => console.log(err));
     }
 
-
+    function createPost(data) {
+        axios.post('http://localhost:5000/api/v1/post', data, {headers: {'x-auth-token': localStorage.getItem('jwtToken')}})
+            .then(res => setCreatedPosts([...createdPosts, res.data]))
+            .catch(err => console.log(err));
+    }
 
     return (
         <div>
+            <Button
+                onClick={() => setIsCreating(true)}
+                className={"mr-4 float-right"}
+                variant={"contained"}
+                color={"secondary"}
+                startIcon={<AddCircleIcon/>}
+            >
+                Create
+            </Button>
             <h1 className={"m-4"}>Your Posts</h1>
-            <div>
-                <div className="row justify-content-center">
 
-                    <div className="col-md-6">
+            <CreatePost show={isCreating}
+                        onHide={() => setIsCreating(false)}
+                        createpost={createPost}
+            />
+            <div className="row justify-content-center">
+                <div className="col-md-6">
 
-                        {createdPosts?.length > 0 && createdPosts?.map((item) => {
-                            return <EditableBlogPost key={item._id} title={item.title} content={item.content}
-                                                     date={item.date}
-                                                     likes={item.likes}
-                                                     id={item._id} username={item.username}
-                                                     deletePost={deletePost}
-                            />
-                        })}
-                        {createdPosts?.length <= 0 && user && <Alert severity="info">No posts created.</Alert>}
+
+                    <div>
+                        {createdPosts?.length > 0 ? createdPosts?.map((item) => {
+                                return <EditableBlogPost key={item._id} title={item.title} content={item.content}
+                                                         date={item.date}
+                                                         likes={item.likes}
+                                                         id={item._id} username={item.username}
+                                                         deletePost={deletePost}
+                                />
+                            }) :
+                            createdPosts?.length <= 0 && user && <Alert severity="info">No posts created.</Alert>}
                     </div>
+
                 </div>
+
             </div>
         </div>
     );

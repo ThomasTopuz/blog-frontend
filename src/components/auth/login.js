@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const LoginPage = () => {
+const Login = () => {
     const {user, setUser} = useContext(UserContext);
     let history = useHistory();
 
@@ -50,6 +50,7 @@ const LoginPage = () => {
             })
             .catch((err) => {
                 setIncorrectEmailOrPassword(true);
+                console.log(err);
             });
     }
 
@@ -105,5 +106,5 @@ const LoginPage = () => {
     )
 }
 
-export default LoginPage;
+export default Login;
 

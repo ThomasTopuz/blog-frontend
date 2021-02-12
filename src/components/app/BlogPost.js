@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import Paper from '@material-ui/core/Paper';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import Button from '@material-ui/core/Button';
@@ -8,7 +8,7 @@ import {UserContext} from "../../context/UserContext";
 function BlogPost(props) {
     let [likes, setLikes] = useState(props.likes);
     const {user, setUser} = useContext(UserContext);
-    let [isLiked, setIsLiked] = useState(user? user.likedPostsId.includes(props.id) : false);
+    let [isLiked, setIsLiked] = useState(user ? user.likedPostsId.includes(props.id) : false);
 
 
     function toggleLike() {
@@ -22,7 +22,7 @@ function BlogPost(props) {
                 setIsLiked(!isLiked);
                 updateUser(); //update user liked posts
 
-            }).catch((err) => console.log(err));
+            }).catch(err => console.log(err));
 
     }
 
@@ -31,9 +31,7 @@ function BlogPost(props) {
             {headers: {'x-auth-token': localStorage.getItem('jwtToken')}})
             .then((res) => {
                 setUser(res.data);
-            }).catch((err) => {
-            console.log(err);
-        });
+            }).catch(err => console.log(err));
     }
 
     return (

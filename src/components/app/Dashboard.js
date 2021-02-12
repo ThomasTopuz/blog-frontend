@@ -1,20 +1,17 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import BlogPost from "./BlogPost";
-import {UserContext} from "../../context/UserContext";
 
-function Dashboard(props) {
+function Dashboard() {
     let [blogPosts, setBlogPosts] = useState();
-    let [loading, setLoading] = useState(true);
-    const {user, setUser} = useContext(UserContext);
+
     useEffect(() => {
         //fetch all posts
         axios.get('http://localhost:5000/api/v1/post')
             .then((res) => {
                 setBlogPosts(res.data)
-                setLoading(false);
             })
-            .catch((err) => console.log(err));
+            .catch(err => console.log(err));
     }, [])
 
     return (
