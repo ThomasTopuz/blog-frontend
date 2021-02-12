@@ -13,7 +13,7 @@ Redirect.propTypes = {to: PropTypes.string};
 function ProtectedRoute({component: Component, ...rest}) {
     return (
         <Route {...rest} render={(props) => (
-            localStorage.getItem('jwtToken')? <Component {...props} /> : <Redirect to='/login'/>
+            localStorage.getItem('jwtToken') ? <Component {...props} /> : <Redirect to='/login'/>
         )}/>
     );
 }

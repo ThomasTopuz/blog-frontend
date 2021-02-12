@@ -11,6 +11,7 @@ function BlogPost(props) {
     let [isLiked, setIsLiked] = useState(user.likedPostsId.includes(props.id));
 
     function toggleLike() {
+        props.dislike?.(props.id);
         const headers = {
             'x-auth-token': localStorage.getItem("jwtToken")
         }

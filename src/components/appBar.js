@@ -18,9 +18,12 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
     },
 }));
-
 function NavBar() {
     const {user, setUser} = useContext(UserContext);
+    const logout = ()=>{
+        setUser(undefined);
+        localStorage.removeItem('jwtToken');
+    }
     return (
         <div className={useStyles.root}>
             <AppBar position="static">
@@ -48,7 +51,7 @@ function NavBar() {
                             {user ? (<div>
                                     <Button color="inherit">{user?.username} </Button>
                                     <Button variant="contained" color="default"
-                                            onClick={() => setUser(null)}>Logout</Button>
+                                            onClick={logout}><Link to={"/login"}>Logout</Link></Button>
                                 </div>)
                                 :
                                 <Button variant="contained" color="secondary"> <Link to={"/login"} style={{

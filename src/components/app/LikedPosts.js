@@ -14,6 +14,15 @@ function LikedPosts() {
             .catch(err => console.log(err));
     }, [])
 
+    function dislike(id) {
+        console.log(id);
+        let updatedLikedPosts = LikedPosts.filter(post => {
+            return post._id !== id;
+        });
+        setLikedPosts(updatedLikedPosts);
+        console.log(updatedLikedPosts);
+    }
+
     return (
         <div>
             <h1 className={"m-4"}>Liked Posts</h1>
@@ -23,7 +32,9 @@ function LikedPosts() {
                         {(LikedPosts?.length > 0) ? LikedPosts?.map((item) => {
                                 return <BlogPost key={item._id} title={item.title} content={item.content} date={item.date}
                                                  likes={item.likes}
-                                                 id={item._id} username={item.username}/>
+                                                 id={item._id} username={item.username}
+                                                 dislike={dislike}
+                                />
                             }) :
                             <Alert severity="info">No posts Liked.</Alert>}
                     </div>

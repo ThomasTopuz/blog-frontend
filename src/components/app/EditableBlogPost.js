@@ -53,18 +53,20 @@ function EditableBlogPost(props) {
                             )}
                         </div>
                         <div className={"col-2 p-0"}>
-                            <Button
-                                className={"float-right mb-4"}
-                                onClick={() => {
-                                    setIsEditing(!isEditing);
-                                }}
-                                startIcon={<BorderColorIcon color={"inherit"}/>}
-                            />
-                            <Button
-                                className={"float-right"}
-                                onClick={() => props.deletePost(props.id)}
-                                startIcon={<DeleteIcon color={"inherit"}/>}
-                            />
+                            <div className={"d-flex flex-column"}>
+                                <Button
+                                    className={"mb-2"}
+                                    onClick={() => {
+                                        setIsEditing(!isEditing);
+                                    }}
+                                    startIcon={<BorderColorIcon color={"inherit"}/>}
+                                />
+                                <Button
+                                    onClick={() => props.deletePost(props.id)}
+                                    startIcon={<DeleteIcon color={"inherit"}/>}
+                                />
+                            </div>
+
                         </div>
                     </div>
                     {isEditing && <Button

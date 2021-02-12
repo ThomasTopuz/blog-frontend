@@ -24,9 +24,7 @@ const Login = () => {
     let history = useHistory();
 
     useEffect(() => {
-        if (user) {
-            redirectDashboard();
-        } else if (localStorage.getItem("jwtToken")) {
+        if (localStorage.getItem("jwtToken")) {
             axios.get("http://localhost:5000/api/v1/users/me", {headers: {'x-auth-token': localStorage.getItem('jwtToken')}})
                 .then(res => {
                     setUser(res.data);
@@ -91,7 +89,6 @@ const Login = () => {
                                 </Button>
                                 <p>Not have an account? <Link to={"/signup"}>Sign Up</Link></p>
                                 <p>
-                                    test
                                     {JSON.stringify(user, null, 2)}
                                 </p>
                             </form>
