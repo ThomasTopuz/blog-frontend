@@ -8,8 +8,7 @@ import {UserContext} from "../../context/UserContext";
 function BlogPost(props) {
     let [likes, setLikes] = useState(props.likes);
     const {user, setUser} = useContext(UserContext);
-    let [isLiked, setIsLiked] = useState(user ? user.likedPostsId.includes(props.id) : false);
-
+    let [isLiked, setIsLiked] = useState(user.likedPostsId.includes(props.id));
 
     function toggleLike() {
         const headers = {

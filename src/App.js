@@ -2,7 +2,7 @@ import './App.scss';
 import React, {useState, useMemo, useEffect} from 'react';
 import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {BrowserRouter as Router, Switch, Route, useHistory} from "react-router-dom";
+import {BrowserRouter as Router, Switch, Route, useHistory, Redirect} from "react-router-dom";
 import "./App.scss"
 import {UserContext} from './context/UserContext';
 
@@ -40,25 +40,22 @@ const theme = createMuiTheme({
 
 
 function App() {
-
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState(undefined);
     const userProviderValue = useMemo(() => ({user, setUser}), [user, setUser]);
-
     let history = useHistory();
+
     useEffect(() => {
-        if (user) {
-            history.push('/dashboard');
-        } else if (localStorage.getItem("jwtToken")) {
+        if (!user) {
+            localStorage.getItem("jwtToken")
             axios.get("http://localhost:5000/api/v1/users/me", {headers: {'x-auth-token': localStorage.getItem('jwtToken')}})
                 .then(res => {
                     setUser(res.data);
-                    history.push('/dashboard');
                 })
                 .catch((err) => {
                     console.log(err);
                 });
         }
-    }, []);
+    }, [history, user]);
 
     return (
         <ThemeProvider theme={theme}>
@@ -77,11 +74,12 @@ function App() {
                             <Dashboard/>
                         </Route>
                         <Route path={"/myposts"} exact>
-                            <MyPosts/>
+                            {!user ? <Redirect to="/dashboard"/> : <MyPosts/>}
                         </Route>
                         <Route path={"/likedposts"} exact>
-                            <LikedPosts/>
+                            {!user ? <Redirect to="/dashboard"/> : <LikedPosts/>}
                         </Route>
+
                     </Switch>
 
                 </UserContext.Provider>
