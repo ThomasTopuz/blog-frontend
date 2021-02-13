@@ -9,7 +9,7 @@ import {useForm} from 'react-hook-form';
 import axios from "axios";
 import Alert from '@material-ui/lab/Alert';
 import {useHistory} from 'react-router-dom';
-import {UserContext} from "../../context/UserContext";
+import {UserContext} from "../context/UserContext";
 
 
 const useStyles = makeStyles((theme) => ({

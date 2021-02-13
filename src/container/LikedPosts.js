@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
-import BlogPost from "./BlogPost";
+import BlogPost from "../components/BlogPost";
 import Alert from "@material-ui/lab/Alert";
 
 function LikedPosts() {

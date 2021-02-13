@@ -6,6 +6,9 @@ import {makeStyles} from "@material-ui/core/styles";
 import {Link} from 'react-router-dom';
 import HomeIcon from '@material-ui/icons/Home';
 import {UserContext} from "../context/UserContext";
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import {IconButton} from "@material-ui/core";
+import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -30,38 +33,57 @@ function NavBar() {
             <AppBar position="static">
                 <Toolbar className={"float-right"}>
                     <div className={"d-flex justify-content-between w-100"}>
-                        <div>
-                            <Button className={""} color="inherit" startIcon={<HomeIcon/>}>
-                                <Link
-                                    className={"d-block"}
-                                    to={"/feed"}
-                                    style={{textDecoration: 'none', color: "white"}}
-                                >Feed</Link>
-                            </Button>
+                        <div className={"d-flex align-items-center"}>
+                            <Link to={"/feed"}>
+                                <IconButton aria-label="feed" style={{'color': 'white'}}>
+                                    <HomeIcon/>
+                                </IconButton>
+                            </Link>
                             {user &&
                             <div className={"m-0 p-0 float-right"}>
-                                <Button color="inherit"> <Link to={"/myposts"}
-                                                               style={{textDecoration: 'none', color: "white"}}
-                                >My Posts</Link></Button>
-                                <Button color="inherit"> <Link to={"/likedposts"}
-                                                               style={{textDecoration: 'none', color: "white"}}
-                                >Liked Posts</Link></Button>
+                                <Link to={"/myposts"}
+                                      style={{textDecoration: 'none', color: "white"}}>
+                                    <Button color="inherit">My Posts</Button>
+                                </Link>
+
+                                <Link to={"/likedposts"}
+                                      style={{textDecoration: 'none', color: "white"}}>
+
+                                    <Button color="inherit">Liked Posts</Button>
+                                </Link>
                             </div>}
 
                         </div>
                         <div>
 
                             {user ? (<div>
-                                    <Button color="inherit">{user?.username} </Button>
-                                    <Button variant="contained" color="default"
-                                            onClick={logout}><Link to={"/login"}>Logout</Link></Button>
+                                    <Button color="inherit">{user?.username}</Button>
+
+                                    {user.isAdmin &&
+                                    <Link to={"/admin"} style={{
+                                        textDecoration: 'none',
+                                        color: "white"
+                                    }}>
+                                        <Button className={"mr-2"} color={"secondary"} variant={"contained"}
+                                                endIcon={<SupervisorAccountIcon/>}>
+                                            Admin
+                                        </Button>
+                                    </Link>}
+
+                                    <Link to={"/login"} onClick={logout}>
+                                        <IconButton aria-label="delete" style={{'color': 'white'}}>
+                                            <ExitToAppIcon/>
+                                        </IconButton>
+                                    </Link>
+
                                 </div>)
                                 :
-                                <Button variant="contained" color="secondary"> <Link to={"/login"} style={{
+                                <Link to={"/login"} style={{
                                     textDecoration: 'none',
                                     color: "white"
-                                }}
-                                >Login</Link></Button>
+                                }}>
+                                    <Button variant="contained" color="secondary">Login</Button>
+                                </Link>
                             }
                         </div>
                     </div>

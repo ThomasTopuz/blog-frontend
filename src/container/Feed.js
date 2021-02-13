@@ -1,7 +1,8 @@
 import React, {useContext, useEffect, useState} from 'react';
 import axios from "axios";
-import BlogPost from "./BlogPost";
-import {UserContext} from "../../context/UserContext";
+import BlogPost from "../components/BlogPost";
+import {UserContext} from "../context/UserContext";
+import Alert from "@material-ui/lab/Alert";
 
 function Feed() {
     let [blogPosts, setBlogPosts] = useState();
@@ -24,12 +25,16 @@ function Feed() {
                 <div>
                     <div className="row justify-content-center">
                         <div className="col-md-6">
-                            {blogPosts?.map((item) => {
-                                return <BlogPost key={item._id} title={item.title} content={item.content}
-                                                 date={item.date}
-                                                 likes={item.likes}
-                                                 id={item._id} username={item.username}/>
-                            })}
+                            {
+                                blogPosts?.length > 0 ? blogPosts.map((item) => {
+                                        return <BlogPost key={item._id} title={item.title} content={item.content}
+                                                         date={item.date}
+                                                         likes={item.likes}
+                                                         id={item._id} username={item.username}/>
+                                    }) :
+                                    <Alert severity="info">No posts.</Alert>
+                            }
+
                         </div>
                     </div>
                 </div>

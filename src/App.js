@@ -8,12 +8,13 @@ import {UserContext} from './context/UserContext';
 
 //components
 import NavBar from './components/appBar';
-import Login from "./components/auth/login";
-import SignUpPage from "./components/auth/signUp";
-import MyPosts from "./components/app/MyPosts";
-import LikedPosts from "./components/app/LikedPosts";
-import Feed from "./components/app/Feed";
+import Login from "./container/login";
+import SignUpPage from "./container/signUp";
+import MyPosts from "./container/MyPosts";
+import LikedPosts from "./container/LikedPosts";
+import Feed from "./container/Feed";
 import axios from "axios";
+import AdminPanel from "./container/AdminPanel";
 
 const theme = createMuiTheme({
     palette: {
@@ -80,7 +81,10 @@ function App() {
                         <Route path={"/likedposts"} exact>
                             {!user ? <Redirect to="/feed"/> : <LikedPosts/>}
                         </Route>
-
+                        <Route path={"/admin"} exact>
+                            <AdminPanel />
+                        </Route>
+                        <Redirect from="/" to="/feed"/>
                     </Switch>
 
                 </UserContext.Provider>

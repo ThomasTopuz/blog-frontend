@@ -10,6 +10,8 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import BorderColorIcon from "@material-ui/icons/BorderColor";
 import {InputTextarea} from 'primereact/inputtextarea';
 import axios from "axios";
+import {IconButton} from "@material-ui/core";
+import Paper from "@material-ui/core/Paper";
 
 function EditableBlogPost(props) {
     const [isEditing, setIsEditing] = useState(false);
@@ -32,8 +34,9 @@ function EditableBlogPost(props) {
                 aria-controls="panel2a-content"
                 id="panel2a-header"
             >
-                <div className="d-flex justify-content-between w-100">
+                <div className="d-flex align-items-center justify-content-between w-100">
                     <h5>{props.title}</h5>
+                    <p className={"p-0 m-0"}>Date: {props.date.slice(0, 10)}</p>
                     <div className={"t"}>
                         <Button className={""} startIcon={<ThumbUpIcon/>}>
                             {props.likes}
@@ -54,31 +57,38 @@ function EditableBlogPost(props) {
                             ) : (
                                 <Typography>{content}</Typography>
                             )}
+
+                            {props.username &&
+                            <p className={'float-left mt-5'}>created by <span
+                                className={"font-weight-bold"}>{props.username}</span></p>
+                            }
+                            <div>
+                            </div>
                         </div>
                         <div className={"col-2 p-0"}>
-                            <div className={"d-flex flex-column"}>
-                                <Button
-                                    className={"mb-2"}
-                                    onClick={() => {
-                                        setIsEditing(!isEditing);
-                                    }}
-                                    startIcon={<BorderColorIcon color={"inherit"}/>}
-                                />
-                                <Button
-                                    className={"mt-2"}
-                                    onClick={() => props.deletePost(props.id)}
-                                    startIcon={<DeleteIcon color={"inherit"}/>}
-                                />
-                            </div>
+                            <div className={"d-flex float-right flex-column w-10"}>
+                                {props.editable &&
+                                <IconButton className={"mb-2"}
+                                            onClick={() => {
+                                                setIsEditing(!isEditing);
+                                            }}>
+                                    <BorderColorIcon style={{'color': "orange"}}/>
+                                </IconButton>}
+                                <IconButton className={"mt-2"}
+                                            onClick={() => props.deletePost(props.id)}>
+                                    <DeleteIcon style={{'color': "red"}}/>
+                                </IconButton>
 
+                            </div>
                         </div>
+                        {isEditing && <Button
+                            variant={"contained"}
+                            color={"secondary"}
+                            className={"float-left"}
+                            onClick={() => updateContent(content)}
+                        >Submit</Button>}
+
                     </div>
-                    {isEditing && <Button
-                        variant={"contained"}
-                        color={"secondary"}
-                        className={"float-left"}
-                        onClick={() => updateContent(content)}
-                    >Submit</Button>}
                 </div>
             </AccordionDetails>
         </Accordion>
