@@ -54,7 +54,7 @@ function NavBar() {
                             </div>}
 
                         </div>
-                        <div>
+                        <div className={"d-flex align-items-center"}>
 
                             {user ? (<div>
                                     <Button color="inherit">{user?.username}</Button>

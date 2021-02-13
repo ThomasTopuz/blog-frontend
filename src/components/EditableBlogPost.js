@@ -19,7 +19,7 @@ function EditableBlogPost(props) {
 
     function updateContent(updatedContent) {
         setContent(updatedContent);
-        axios.put(BASE_URL+'/post/' + props.id, {title: props.title, content: updatedContent},
+        axios.put(BASE_URL + '/post/' + props.id, {title: props.title, content: updatedContent},
             {headers: {'x-auth-token': localStorage.getItem('jwtToken')}})
             .then((res) => {
                 setIsEditing(false);
@@ -52,21 +52,17 @@ function EditableBlogPost(props) {
                 <div className="container">
                     <div className={"row"}>
                         <div className={"col-10"}>
-                            {isEditing ? (
+                            {isEditing ?
                                 <div>
                                     <InputTextarea rows={5} className="w-100" value={content}
                                                    onChange={(e) => setContent(e.target.value)}/>
                                 </div>
-                            ) : (
-                                <Typography>{content}</Typography>
-                            )}
+                                : <Typography>{content}</Typography>
+                            }
 
                             {props.username &&
                             <p className={'float-left mt-5'}>created by <span
-                                className={"font-weight-bold"}>{props.username}</span></p>
-                            }
-                            <div>
-                            </div>
+                                className={"font-weight-bold"}>{props.username}</span></p>}
                         </div>
                         <div className={"col-2 p-0"}>
                             <div className={"d-flex float-right flex-column w-10"}>

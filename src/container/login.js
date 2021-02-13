@@ -76,9 +76,6 @@ const Login = () => {
                                     Login
                                 </Button>
                                 <p>Not have an account? <Link to={"/signup"}>Sign Up</Link></p>
-                                <p>
-                                    {JSON.stringify(user, null, 2)}
-                                </p>
                             </form>
                         </div>
                     </Paper>
