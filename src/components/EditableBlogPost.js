@@ -40,7 +40,7 @@ function EditableBlogPost(props) {
                         <p className={"m-0 p-0 mr-4"}>{props.date.slice(0, 10)}</p>
                         <div>
 
-                            <Badge badgeContent={props.likes} color="primary" className={"flex-1"}>
+                            <Badge badgeContent={props.likes>0? props.likes : '0'} color="primary" className={"flex-1"}>
                                 <ThumbUpIcon fontSize={"default"}/>
                             </Badge>
                         </div>
