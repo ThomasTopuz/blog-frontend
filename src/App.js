@@ -15,6 +15,7 @@ import LikedPosts from "./container/LikedPosts";
 import Feed from "./container/Feed";
 import axios from "axios";
 import AdminPanel from "./container/AdminPanel";
+import BASE_URL from "./BaseUrl";
 
 const theme = createMuiTheme({
     palette: {
@@ -47,7 +48,7 @@ function App() {
 
     useEffect(() => {
         if (!user && localStorage.getItem("jwtToken")) {
-            axios.get("http://138.68.75.217:5000/api/v1/users/me", {headers: {'x-auth-token': localStorage.getItem('jwtToken')}})
+            axios.get(BASE_URL + "/users/me", {headers: {'x-auth-token': localStorage.getItem('jwtToken')}})
                 .then(res => {
                     setUser(res.data);
                 })

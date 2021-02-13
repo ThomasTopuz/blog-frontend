@@ -26,19 +26,17 @@ function BlogPost(props) {
         const headers = {
             'x-auth-token': localStorage.getItem("jwtToken")
         }
-
-        axios.get(BASE_URL+"/post/liketoggle/" + props.id, {headers: headers})
+        setIsLiked(!isLiked);
+        axios.get(BASE_URL + "/post/liketoggle/" + props.id, {headers: headers})
             .then((res) => {
                 setLikes(res.data.likes);
-                setIsLiked(!isLiked);
                 updateUser(); //update user liked posts
-
             }).catch(err => console.log(err));
 
     }
 
     function updateUser() {
-        axios.get(BASE_URL+"/users/me",
+        axios.get(BASE_URL + "/users/me",
             {headers: {'x-auth-token': localStorage.getItem('jwtToken')}})
             .then((res) => {
                 setUser(res.data);

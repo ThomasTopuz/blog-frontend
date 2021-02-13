@@ -24,19 +24,6 @@ const Login = () => {
     const {user, setUser} = useContext(UserContext);
     let history = useHistory();
 
-    useEffect(() => {
-        if (localStorage.getItem("jwtToken")) {
-            axios.get(BASE_URL+"/users/me", {headers: {'x-auth-token': localStorage.getItem('jwtToken')}})
-                .then(res => {
-                    setUser(res.data);
-                    redirectDashboard();
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-        }
-    }, []);
-
     let [incorrectEmailOrPassword, setIncorrectEmailOrPassword] = useState(false);
     const methods = useForm();
     const {handleSubmit, register, errors} = methods;

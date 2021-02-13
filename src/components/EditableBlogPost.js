@@ -41,7 +41,7 @@ function EditableBlogPost(props) {
                         <div>
 
                             <Badge badgeContent={props.likes} color="primary" className={"flex-1"}>
-                                <ThumbUpIcon fontSize={"medium"}/>
+                                <ThumbUpIcon fontSize={"default"}/>
                             </Badge>
                         </div>
                     </div>
