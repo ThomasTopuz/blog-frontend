@@ -10,7 +10,7 @@ import axios from "axios";
 import Alert from '@material-ui/lab/Alert';
 import {useHistory} from 'react-router-dom';
 import {UserContext} from "../context/UserContext";
-
+import BASE_URL from "../BaseUrl";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -29,7 +29,7 @@ const SignUpPage = () => {
     const methods = useForm();
     const {handleSubmit, register, errors} = methods;
     const onSubmit = (data) => {
-        axios.post("http://138.68.75.217:5000/api/v1/users/register", data)
+        axios.post(BASE_URL+"/users/register", data)
             .then((res) => {
                 //is logged in automatically
                 localStorage.setItem("jwtToken", res.headers["x-auth-token"]);

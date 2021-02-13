@@ -3,6 +3,7 @@ import axios from "axios";
 import BlogPost from "../components/BlogPost";
 import {UserContext} from "../context/UserContext";
 import Alert from "@material-ui/lab/Alert";
+import BASE_URL from "../BaseUrl";
 
 function Feed() {
     let [blogPosts, setBlogPosts] = useState();
@@ -10,7 +11,7 @@ function Feed() {
 
     useEffect(() => {
         //fetch all posts
-        axios.get('http://138.68.75.217:5000/api/v1/post')
+        axios.get(BASE_URL+'/post')
             .then((res) => {
                 setBlogPosts(res.data)
             })

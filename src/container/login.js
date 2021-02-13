@@ -9,6 +9,7 @@ import {useForm} from "react-hook-form";
 import axios from "axios";
 import Alert from "@material-ui/lab/Alert";
 import {UserContext} from "../context/UserContext";
+import BASE_URL from "../BaseUrl";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -25,7 +26,7 @@ const Login = () => {
 
     useEffect(() => {
         if (localStorage.getItem("jwtToken")) {
-            axios.get("http://138.68.75.217:5000/api/v1/users/me", {headers: {'x-auth-token': localStorage.getItem('jwtToken')}})
+            axios.get(BASE_URL+"/users/me", {headers: {'x-auth-token': localStorage.getItem('jwtToken')}})
                 .then(res => {
                     setUser(res.data);
                     redirectDashboard();
@@ -40,7 +41,7 @@ const Login = () => {
     const methods = useForm();
     const {handleSubmit, register, errors} = methods;
     const onSubmit = (data) => {
-        axios.post("http://138.68.75.217:5000/api/v1/users/login", data)
+        axios.post(BASE_URL+"/users/login", data)
             .then((res) => {
                 localStorage.setItem("jwtToken", res.headers["x-auth-token"]);
                 setUser(res.data);

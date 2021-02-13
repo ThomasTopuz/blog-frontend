@@ -6,6 +6,7 @@ import {UserContext} from "../context/UserContext";
 import Button from "@material-ui/core/Button";
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import CreatePost from "../components/CreatePost";
+import BASE_URL from "../BaseUrl";
 
 function MyPosts() {
     let [createdPosts, setCreatedPosts] = useState();
@@ -14,7 +15,7 @@ function MyPosts() {
 
     useEffect(() => {
         //fetch all posts
-        axios.get('http://138.68.75.217:5000/api/v1/post/created', {headers: {'x-auth-token': localStorage.getItem("jwtToken")}})
+        axios.get(BASE_URL+'/post/created', {headers: {'x-auth-token': localStorage.getItem("jwtToken")}})
             .then((res) => {
                 setCreatedPosts(res.data)
             })
@@ -26,12 +27,12 @@ function MyPosts() {
             return item._id !== id;
         });
         setCreatedPosts(updateCreatedPosts);
-        axios.delete('http://138.68.75.217:5000/api/v1/post/' + id, {headers: {'x-auth-token': localStorage.getItem('jwtToken')}})
+        axios.delete(BASE_URL+'/post/' + id, {headers: {'x-auth-token': localStorage.getItem('jwtToken')}})
             .catch(err => console.log(err));
     }
 
     function createPost(data) {
-        axios.post('http://138.68.75.217:5000/api/v1/post', data, {headers: {'x-auth-token': localStorage.getItem('jwtToken')}})
+        axios.post(BASE_URL+'/post', data, {headers: {'x-auth-token': localStorage.getItem('jwtToken')}})
             .then(res => setCreatedPosts([...createdPosts, res.data]))
             .catch(err => console.log(err));
     }

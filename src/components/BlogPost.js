@@ -6,6 +6,7 @@ import axios from "axios";
 import {UserContext} from "../context/UserContext";
 import Typography from "@material-ui/core/Typography";
 import Popover from '@material-ui/core/Popover';
+import BASE_URL from "../BaseUrl";
 
 function BlogPost(props) {
     let [likes, setLikes] = useState(props.likes);
@@ -26,7 +27,7 @@ function BlogPost(props) {
             'x-auth-token': localStorage.getItem("jwtToken")
         }
 
-        axios.get("http://138.68.75.217:5000/api/v1/post/liketoggle/" + props.id, {headers: headers})
+        axios.get(BASE_URL+"/post/liketoggle/" + props.id, {headers: headers})
             .then((res) => {
                 setLikes(res.data.likes);
                 setIsLiked(!isLiked);
@@ -37,7 +38,7 @@ function BlogPost(props) {
     }
 
     function updateUser() {
-        axios.get("http://138.68.75.217:5000/api/v1/users/me",
+        axios.get(BASE_URL+"/users/me",
             {headers: {'x-auth-token': localStorage.getItem('jwtToken')}})
             .then((res) => {
                 setUser(res.data);

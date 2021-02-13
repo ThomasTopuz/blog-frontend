@@ -2,13 +2,13 @@ import React, {useEffect, useState} from 'react';
 import EditableBlogPost from "../components/EditableBlogPost";
 import Alert from "@material-ui/lab/Alert";
 import axios from "axios";
-
+import BASE_URL from "../BaseUrl";
 function AdminPanel() {
     let [blogPosts, setBlogPosts] = useState();
 
     useEffect(() => {
         //fetch all posts
-        axios.get('http://138.68.75.217:5000/api/v1/post')
+        axios.get(BASE_URL+'/post')
             .then((res) => {
                 setBlogPosts(res.data)
             })
@@ -21,7 +21,7 @@ function AdminPanel() {
             return item._id !== id;
         });
         setBlogPosts(updatedPosts);
-        axios.delete('http://138.68.75.217:5000/api/v1/post/' + id, {headers: {'x-auth-token': localStorage.getItem('jwtToken')}})
+        axios.delete(BASE_URL+'/post/' + id, {headers: {'x-auth-token': localStorage.getItem('jwtToken')}})
             .catch(err => console.log(err));
     }
 

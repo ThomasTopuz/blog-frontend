@@ -2,12 +2,13 @@ import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import BlogPost from "../components/BlogPost";
 import Alert from "@material-ui/lab/Alert";
+import BASE_URL from "../BaseUrl";
 
 function LikedPosts() {
     let [LikedPosts, setLikedPosts] = useState();
     useEffect(() => {
         //fetch all liked posts
-        axios.get('http://138.68.75.217:5000/api/v1/post/liked', {headers: {'x-auth-token': localStorage.getItem("jwtToken")}})
+        axios.get(BASE_URL+'/post/liked', {headers: {'x-auth-token': localStorage.getItem("jwtToken")}})
             .then((res) => {
                 setLikedPosts(res.data);
             })

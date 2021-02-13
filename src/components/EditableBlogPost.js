@@ -11,7 +11,7 @@ import BorderColorIcon from "@material-ui/icons/BorderColor";
 import {InputTextarea} from 'primereact/inputtextarea';
 import axios from "axios";
 import {Badge, IconButton} from "@material-ui/core";
-import Paper from "@material-ui/core/Paper";
+import BASE_URL from "../BaseUrl";
 
 function EditableBlogPost(props) {
     const [isEditing, setIsEditing] = useState(false);
@@ -19,7 +19,7 @@ function EditableBlogPost(props) {
 
     function updateContent(updatedContent) {
         setContent(updatedContent);
-        axios.put('http://138.68.75.217:5000/api/v1/post/' + props.id, {title: props.title, content: updatedContent},
+        axios.put(BASE_URL+'/post/' + props.id, {title: props.title, content: updatedContent},
             {headers: {'x-auth-token': localStorage.getItem('jwtToken')}})
             .then((res) => {
                 setIsEditing(false);
