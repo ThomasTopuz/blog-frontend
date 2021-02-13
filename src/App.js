@@ -47,7 +47,7 @@ function App() {
 
     useEffect(() => {
         if (!user && localStorage.getItem("jwtToken")) {
-            axios.get("http://localhost:5000/api/v1/users/me", {headers: {'x-auth-token': localStorage.getItem('jwtToken')}})
+            axios.get("http://138.68.75.217:5000/api/v1/users/me", {headers: {'x-auth-token': localStorage.getItem('jwtToken')}})
                 .then(res => {
                     setUser(res.data);
                 })

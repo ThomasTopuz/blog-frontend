@@ -10,7 +10,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import BorderColorIcon from "@material-ui/icons/BorderColor";
 import {InputTextarea} from 'primereact/inputtextarea';
 import axios from "axios";
-import {IconButton} from "@material-ui/core";
+import {Badge, IconButton} from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 
 function EditableBlogPost(props) {
@@ -19,7 +19,7 @@ function EditableBlogPost(props) {
 
     function updateContent(updatedContent) {
         setContent(updatedContent);
-        axios.put('http://localhost:5000/api/v1/post/' + props.id, {title: props.title, content: updatedContent},
+        axios.put('http://138.68.75.217:5000/api/v1/post/' + props.id, {title: props.title, content: updatedContent},
             {headers: {'x-auth-token': localStorage.getItem('jwtToken')}})
             .then((res) => {
                 setIsEditing(false);
@@ -36,11 +36,14 @@ function EditableBlogPost(props) {
             >
                 <div className="d-flex align-items-center justify-content-between w-100">
                     <h5>{props.title}</h5>
-                    <p className={"p-0 m-0"}>Date: {props.date.slice(0, 10)}</p>
-                    <div className={"t"}>
-                        <Button className={""} startIcon={<ThumbUpIcon/>}>
-                            {props.likes}
-                        </Button>
+                    <div className={"d-flex"}>
+                        <p className={"m-0 p-0 mr-4"}>{props.date.slice(0, 10)}</p>
+                        <div>
+
+                            <Badge badgeContent={props.likes} color="primary" className={"flex-1"}>
+                                <ThumbUpIcon fontSize={"medium"}/>
+                            </Badge>
+                        </div>
                     </div>
                 </div>
 

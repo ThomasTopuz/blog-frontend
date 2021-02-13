@@ -8,7 +8,7 @@ function AdminPanel() {
 
     useEffect(() => {
         //fetch all posts
-        axios.get('http://localhost:5000/api/v1/post')
+        axios.get('http://138.68.75.217:5000/api/v1/post')
             .then((res) => {
                 setBlogPosts(res.data)
             })
@@ -21,7 +21,7 @@ function AdminPanel() {
             return item._id !== id;
         });
         setBlogPosts(updatedPosts);
-        axios.delete('http://localhost:5000/api/v1/post/' + id, {headers: {'x-auth-token': localStorage.getItem('jwtToken')}})
+        axios.delete('http://138.68.75.217:5000/api/v1/post/' + id, {headers: {'x-auth-token': localStorage.getItem('jwtToken')}})
             .catch(err => console.log(err));
     }
 

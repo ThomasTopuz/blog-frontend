@@ -7,7 +7,7 @@ function LikedPosts() {
     let [LikedPosts, setLikedPosts] = useState();
     useEffect(() => {
         //fetch all liked posts
-        axios.get('http://localhost:5000/api/v1/post/liked', {headers: {'x-auth-token': localStorage.getItem("jwtToken")}})
+        axios.get('http://138.68.75.217:5000/api/v1/post/liked', {headers: {'x-auth-token': localStorage.getItem("jwtToken")}})
             .then((res) => {
                 setLikedPosts(res.data);
             })

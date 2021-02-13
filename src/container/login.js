@@ -25,7 +25,7 @@ const Login = () => {
 
     useEffect(() => {
         if (localStorage.getItem("jwtToken")) {
-            axios.get("http://localhost:5000/api/v1/users/me", {headers: {'x-auth-token': localStorage.getItem('jwtToken')}})
+            axios.get("http://138.68.75.217:5000/api/v1/users/me", {headers: {'x-auth-token': localStorage.getItem('jwtToken')}})
                 .then(res => {
                     setUser(res.data);
                     redirectDashboard();
@@ -40,7 +40,7 @@ const Login = () => {
     const methods = useForm();
     const {handleSubmit, register, errors} = methods;
     const onSubmit = (data) => {
-        axios.post("http://localhost:5000/api/v1/users/login", data)
+        axios.post("http://138.68.75.217:5000/api/v1/users/login", data)
             .then((res) => {
                 localStorage.setItem("jwtToken", res.headers["x-auth-token"]);
                 setUser(res.data);

@@ -10,7 +10,7 @@ function Feed() {
 
     useEffect(() => {
         //fetch all posts
-        axios.get('http://localhost:5000/api/v1/post')
+        axios.get('http://138.68.75.217:5000/api/v1/post')
             .then((res) => {
                 setBlogPosts(res.data)
             })

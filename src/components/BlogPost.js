@@ -26,7 +26,7 @@ function BlogPost(props) {
             'x-auth-token': localStorage.getItem("jwtToken")
         }
 
-        axios.get("http://localhost:5000/api/v1/post/liketoggle/" + props.id, {headers: headers})
+        axios.get("http://138.68.75.217:5000/api/v1/post/liketoggle/" + props.id, {headers: headers})
             .then((res) => {
                 setLikes(res.data.likes);
                 setIsLiked(!isLiked);
@@ -37,7 +37,7 @@ function BlogPost(props) {
     }
 
     function updateUser() {
-        axios.get("http://localhost:5000/api/v1/users/me",
+        axios.get("http://138.68.75.217:5000/api/v1/users/me",
             {headers: {'x-auth-token': localStorage.getItem('jwtToken')}})
             .then((res) => {
                 setUser(res.data);
