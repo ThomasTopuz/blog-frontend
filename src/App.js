@@ -83,7 +83,7 @@ function App() {
                             {!user ? <Redirect to="/feed"/> : <LikedPosts/>}
                         </Route>
                         <Route path={"/admin"} exact>
-                            <AdminPanel />
+                            <AdminPanel/>
                         </Route>
                         <Redirect from="/" to="/feed"/>
                     </Switch>
