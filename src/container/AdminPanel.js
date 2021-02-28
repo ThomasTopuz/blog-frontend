@@ -34,35 +34,37 @@ function AdminPanel() {
   return (
     <div>
       <h1 className={"m-4"}>Admin panel</h1>
-      <div className="row justify-content-center">
-        <div className="col-md-6">
-          {!loading ? (
-            <div>
-              {blogPosts?.length > 0
-                ? blogPosts?.map((item) => {
-                    return (
-                      <EditableBlogPost
-                        key={item._id}
-                        title={item.title}
-                        content={item.content}
-                        date={item.date}
-                        likes={item.likes}
-                        id={item._id}
-                        username={item.username}
-                        editable={false}
-                        deletePost={deletePost}
-                      />
-                    );
-                  })
-                : blogPosts?.length <= 0 && (
-                    <Alert severity="info">No posts.</Alert>
-                  )}
-            </div>
-          ) : (
-            <div className="row justify-content-center">
-              <CircularProgress size={50} />
-            </div>
-          )}
+      <div className="container">
+        <div className="row justify-content-center">
+          <div className="col-10">
+            {!loading ? (
+              <div>
+                {blogPosts?.length > 0
+                  ? blogPosts?.map((item) => {
+                      return (
+                        <EditableBlogPost
+                          key={item._id}
+                          title={item.title}
+                          content={item.content}
+                          date={item.date}
+                          likes={item.likes}
+                          id={item._id}
+                          username={item.username}
+                          editable={false}
+                          deletePost={deletePost}
+                        />
+                      );
+                    })
+                  : blogPosts?.length <= 0 && (
+                      <Alert severity="info">No posts.</Alert>
+                    )}
+              </div>
+            ) : (
+              <div className="row justify-content-center">
+                <CircularProgress size={50} />
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </div>

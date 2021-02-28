@@ -31,9 +31,9 @@ function LikedPosts() {
   return (
     <div>
       <h1 className={"m-4"}>Liked Posts</h1>
-      <div>
+      <div className="container">
         <div className="row justify-content-center">
-          <div className="col-md-6">
+          <div className="col-10">
             {!loading ? (
               <div>
                 {LikedPosts?.length > 0 ? (

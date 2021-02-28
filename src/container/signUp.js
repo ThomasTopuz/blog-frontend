@@ -50,9 +50,9 @@ const SignUpPage = () => {
   };
 
   return (
-    <div>
+    <div className="container">
       <div className={"row mt-3 justify-content-center"}>
-        <div className={"col-md-4"}>
+        <div className={"col-7"}>
           <Paper elevation={24}>
             <div className={"p-5"}>
               <h2 className={"text-center"}>Sign up form</h2>
