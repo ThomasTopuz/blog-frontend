@@ -5,12 +5,29 @@ import { UserContext } from "../context/UserContext";
 import Alert from "@material-ui/lab/Alert";
 import BASE_URL from "../BaseUrl";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { TextField } from "@material-ui/core";
 
 function Feed() {
   let [blogPosts, setBlogPosts] = useState([]);
+  const [filteredBlogPosts, setFilteredBlogPosts] = useState([]);
   const [lodaing, setLoading] = useState(true);
   const { user } = useContext(UserContext);
-
+  const onSearchFilter = (event) => {
+    const filterInput = event.target.value;
+    if (filterInput.length > 0) {
+      console.log(filterInput);
+      const filteredBlogPosts = blogPosts.filter((post) => {
+        if (
+          post.title.includes(filterInput) ||
+          post.content.includes(filterInput)
+        )
+          return post;
+      });
+      setFilteredBlogPosts(filteredBlogPosts);
+    } else {
+      setFilteredBlogPosts(blogPosts);
+    }
+  };
   useEffect(() => {
     //fetch all posts
     axios
@@ -26,14 +43,24 @@ function Feed() {
     <div>
       {(user == null || user) && (
         <div>
-          <h1 className={"m-4"}>News Feed</h1>
+          <div className="row align-items-center w-100">
+            <h1 className={"m-4"}>News Feed</h1>
+          </div>
+
           <div>
             <div className="row justify-content-center">
               <div className="col-md-6">
+                  <TextField
+                    id="filled-basic"
+                    onChange={onSearchFilter}
+                    label="Search for a post"
+                    variant="filled"
+                    fullWidth
+                  />
                 {!lodaing ? (
                   <div>
-                    {blogPosts?.length > 0 ? (
-                      blogPosts.map((item) => {
+                    {filteredBlogPosts?.length > 0 ? (
+                      filteredBlogPosts.map((item) => {
                         return (
                           <BlogPost
                             key={item._id}
@@ -47,7 +74,7 @@ function Feed() {
                         );
                       })
                     ) : (
-                      <Alert severity="info">No posts.</Alert>
+                      <Alert className="mt-3" severity="info">No posts.</Alert>
                     )}
                   </div>
                 ) : (
