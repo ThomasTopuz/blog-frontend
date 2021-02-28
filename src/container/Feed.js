@@ -34,6 +34,7 @@ function Feed() {
       .get(BASE_URL + "/post")
       .then((res) => {
         setBlogPosts(res.data);
+        setFilteredBlogPosts(res.data);
         setLoading(false);
       })
       .catch((err) => console.log(err));
@@ -50,13 +51,13 @@ function Feed() {
           <div>
             <div className="row justify-content-center">
               <div className="col-md-6">
-                  <TextField
-                    id="filled-basic"
-                    onChange={onSearchFilter}
-                    label="Search for a post"
-                    variant="filled"
-                    fullWidth
-                  />
+                <TextField
+                  id="filled-basic"
+                  onChange={onSearchFilter}
+                  label="Search for a post"
+                  variant="filled"
+                  fullWidth
+                />
                 {!lodaing ? (
                   <div>
                     {filteredBlogPosts?.length > 0 ? (
@@ -74,7 +75,9 @@ function Feed() {
                         );
                       })
                     ) : (
-                      <Alert className="mt-3" severity="info">No posts.</Alert>
+                      <Alert className="mt-3" severity="info">
+                        No posts.
+                      </Alert>
                     )}
                   </div>
                 ) : (
