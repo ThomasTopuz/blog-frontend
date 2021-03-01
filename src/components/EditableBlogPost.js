@@ -12,6 +12,7 @@ import { InputTextarea } from "primereact/inputtextarea";
 import axios from "axios";
 import { Badge, IconButton } from "@material-ui/core";
 import BASE_URL from "../BaseUrl";
+import UndoIcon from "@material-ui/icons/Undo";
 
 function EditableBlogPost(props) {
   const [isEditing, setIsEditing] = useState(false);
@@ -57,7 +58,7 @@ function EditableBlogPost(props) {
       <AccordionDetails>
         <div className="container">
           <div className={"row"}>
-            <div className={"col-10"}>
+            <div className={"col-12"}>
               {isEditing ? (
                 <div>
                   <InputTextarea
@@ -68,47 +69,61 @@ function EditableBlogPost(props) {
                   />
                 </div>
               ) : (
-                <Typography>{content}</Typography>
-              )}
-
-              {props.username && (
-                <p className={"float-left mt-5"}>
-                  created by{" "}
-                  <span className={"font-weight-bold"}>{props.username}</span>
-                </p>
+                <Typography
+                  style={{ borderBottom: "1px solid #bbb", paddingBottom: 4 }}
+                >
+                  {content}
+                </Typography>
               )}
             </div>
-            <div className={"col-2 p-0"}>
-              <div className={"d-flex float-right flex-column w-10"}>
-                {props.editable && (
+          </div>
+          {props.username && (
+            <p className={"float-left mt-3"}>
+              created by{" "}
+              <span className={"font-weight-bold"}>{props.username}</span>
+            </p>
+          )}
+          <div className={"d-flex float-right flex-row w-10"}>
+            {props.editable && (
+              <div>
+                {!isEditing ? (
                   <IconButton
-                    className={"mb-2"}
+                    className="mr-2"
                     onClick={() => {
                       setIsEditing(!isEditing);
                     }}
                   >
-                    <BorderColorIcon style={{ color: "orange" }} />
+                    <BorderColorIcon
+                      style={{ color: "orange", fontSize: 30 }}
+                    />
+                  </IconButton>
+                ) : (
+                  <IconButton
+                    className="mr-2"
+                    onClick={() => {
+                      setIsEditing(!isEditing);
+                    }}
+                  >
+                    <UndoIcon style={{ color: "orange", fontSize: 30,transform: [{scaleX: -1}] }} />
                   </IconButton>
                 )}
-                <IconButton
-                  className={"mt-2"}
-                  onClick={() => props.deletePost(props.id)}
-                >
-                  <DeleteIcon style={{ color: "red" }} />
-                </IconButton>
               </div>
-            </div>
-            {isEditing && (
-              <Button
-                variant={"contained"}
-                color={"secondary"}
-                className={"float-left"}
-                onClick={() => updateContent(content)}
-              >
-                Submit
-              </Button>
             )}
+            <IconButton onClick={() => props.deletePost(props.id)}>
+              <DeleteIcon style={{ color: "#f00", fontSize: 30 }} />
+            </IconButton>
           </div>
+
+          {isEditing && (
+            <Button
+              variant={"contained"}
+              color={"secondary"}
+              className={"float-left"}
+              onClick={() => updateContent(content)}
+            >
+              Submit
+            </Button>
+          )}
         </div>
       </AccordionDetails>
     </Accordion>

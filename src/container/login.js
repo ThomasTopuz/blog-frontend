@@ -56,7 +56,6 @@ const Login = () => {
               <h2 className={"text-center"}>Login form</h2>
               <form
                 onSubmit={handleSubmit(onSubmit)}
-                className={useStyles.root}
                 noValidate
                 autoComplete="off"
               >
