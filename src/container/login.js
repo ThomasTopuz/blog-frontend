@@ -50,9 +50,9 @@ const Login = () => {
   return (
     <div className="container">
       <div className={"row mt-3 justify-content-center"}>
-        <div className={"col-7"}>
+        <div className={"col-md-7"}>
           <Paper elevation={24}>
-            <div className={"p-5"}>
+            <div className={"p-5 mt-5"}>
               <h2 className={"text-center"}>Login form</h2>
               <form
                 onSubmit={handleSubmit(onSubmit)}

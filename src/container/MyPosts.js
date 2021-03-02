@@ -69,7 +69,7 @@ function MyPosts() {
       />
       <div className="container">
         <div className="row justify-content-center">
-          <div className="col-10">
+          <div className="col-md-10">
             {!loading ? (
               <div>
                 {createdPosts?.length > 0

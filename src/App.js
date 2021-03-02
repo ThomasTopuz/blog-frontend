@@ -13,7 +13,7 @@ import "./App.scss";
 import { UserContext } from "./context/UserContext";
 
 //components
-import NavBar from "./components/appBar";
+import Navbar from "./components/Navbar/Navbar";
 import Login from "./container/login";
 import SignUpPage from "./container/signUp";
 import MyPosts from "./container/MyPosts";
@@ -43,7 +43,6 @@ const theme = createMuiTheme({
 function App() {
   const [user, setUser] = useState(undefined);
   const userProviderValue = useMemo(() => ({ user, setUser }), [user, setUser]);
-  let history = useHistory();
 
   useEffect(() => {
     if (!user && localStorage.getItem("jwtToken")) {
@@ -66,7 +65,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         <UserContext.Provider value={userProviderValue}>
-          <NavBar />
+          <Navbar />
           <Switch>
             <Route path={"/login"}>
               <Login />

@@ -36,7 +36,7 @@ function AdminPanel() {
       <h1 className={"m-4"}>Admin panel</h1>
       <div className="container">
         <div className="row justify-content-center">
-          <div className="col-10">
+          <div className="col-md-10">
             {!loading ? (
               <div>
                 {blogPosts?.length > 0

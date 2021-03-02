@@ -52,7 +52,7 @@ const SignUpPage = () => {
   return (
     <div className="container">
       <div className={"row mt-3 justify-content-center"}>
-        <div className={"col-7"}>
+        <div className={"col-md-7"}>
           <Paper elevation={24}>
             <div className={"p-5"}>
               <h2 className={"text-center"}>Sign up form</h2>
@@ -61,6 +61,7 @@ const SignUpPage = () => {
                 noValidate
                 autoComplete="off"
               >
+                
                 {alreadyRegisteredMsg && (
                   <div>
                     <Alert className={"mt-3 mb-3"} severity="error">
@@ -68,6 +69,7 @@ const SignUpPage = () => {
                     </Alert>
                   </div>
                 )}
+                
 
                 <div className={"mb-3"}>
                   <TextField

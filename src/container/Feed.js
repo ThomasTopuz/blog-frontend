@@ -44,13 +44,11 @@ function Feed() {
     <div>
       {(user == null || user) && (
         <div>
-          <div className="row align-items-center w-100">
-            <h1 className={"m-4"}>News Feed</h1>
-          </div>
+          <h1 className={"m-4"}>News Feed</h1>
 
           <div className="container">
             <div className="row justify-content-center">
-              <div className="col-10">
+              <div className="col-md-10">
                 <TextField
                   id="filled-basic"
                   onChange={onSearchFilter}

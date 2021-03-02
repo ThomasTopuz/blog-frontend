@@ -104,7 +104,13 @@ function EditableBlogPost(props) {
                       setIsEditing(!isEditing);
                     }}
                   >
-                    <UndoIcon style={{ color: "orange", fontSize: 30,transform: [{scaleX: -1}] }} />
+                    <UndoIcon
+                      style={{
+                        color: "orange",
+                        fontSize: 30,
+                        transform: [{ scaleX: -1 }],
+                      }}
+                    />
                   </IconButton>
                 )}
               </div>
