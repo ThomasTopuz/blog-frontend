@@ -31,6 +31,7 @@ const SignUpPage = () => {
   const { handleSubmit, register, errors } = methods;
   const onSubmit = (data) => {
     setLoading(true);
+    data.email = data.email.toLowerCase();
     axios
       .post(BASE_URL + "/users/register", data)
       .then((res) => {
@@ -61,7 +62,6 @@ const SignUpPage = () => {
                 noValidate
                 autoComplete="off"
               >
-                
                 {alreadyRegisteredMsg && (
                   <div>
                     <Alert className={"mt-3 mb-3"} severity="error">
@@ -69,7 +69,6 @@ const SignUpPage = () => {
                     </Alert>
                   </div>
                 )}
-                
 
                 <div className={"mb-3"}>
                   <TextField

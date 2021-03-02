@@ -30,6 +30,7 @@ const Login = () => {
   const { handleSubmit, register, errors } = methods;
   const onSubmit = (data) => {
     setLoading(true);
+    data.email = data.email.toLowerCase();
     axios
       .post(BASE_URL + "/users/login", data)
       .then((res) => {

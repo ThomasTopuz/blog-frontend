@@ -13,13 +13,14 @@ function Feed() {
   const [lodaing, setLoading] = useState(true);
   const { user } = useContext(UserContext);
   const onSearchFilter = (event) => {
-    const filterInput = event.target.value;
+    const filterInput = event.target.value.toLowerCase();
     if (filterInput.length > 0) {
       console.log(filterInput);
       const filteredBlogPosts = blogPosts.filter((post) => {
         if (
-          post.title.includes(filterInput) ||
-          post.content.includes(filterInput)
+          post.title.toLowerCase().includes(filterInput) ||
+          post.content.toLowerCase().includes(filterInput) ||
+          post.username.toLowerCase().includes(filterInput)
         )
           return post;
       });
