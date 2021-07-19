@@ -1,0 +1,13 @@
+# Step 1 building the application (build folder)
+FROM node:14 as build-stage
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
+# Step 2 copying to a web server
+FROM nginx:1.12-alpine
+COPY --from=build-stage /app/build /usr/share/nginx/html
+EXPOSE 80
+ENTRYPOINT [ "nginx", "-g", "daemon off;" ]
