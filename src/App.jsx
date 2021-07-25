@@ -3,7 +3,7 @@ import React, { useState, useMemo, useEffect } from "react";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Switch,
   Route,
   useHistory,
