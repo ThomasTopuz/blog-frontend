@@ -1,4 +1,4 @@
-## Full stack MERN app hosted on heroku.com
+## Sample Full stack project, a simple forum system
 ### Live project: https://blogapp-sample.netlify.app/#/feed
 Sample user: email: guest@guest.com password: guest
 ## Tech stack used:
