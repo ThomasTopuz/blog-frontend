@@ -1,5 +1,5 @@
 ## Full stack MERN app hosted on heroku.com
-### Available at https://blogapp-sample.netlify.app/#/feed
+### Live project: https://blogapp-sample.netlify.app/#/feed
 Sample user: email: guest@guest.com password: guest
 ## Tech stack used:
  -  reactjs
